@@ -1,13 +1,13 @@
-import * as React from "react"
-import Tweet from "../Tweet/Tweet"
-import TweetBox from "../TweetBox/TweetBox"
-import "./Feed.css"
+import * as React from "react";
+import Tweet from "../Tweet/Tweet";
+import TweetBox from "../TweetBox/TweetBox";
+import "./Feed.css";
 
 export default function Feed(props) {
   return (
     <div className="col feed">
       {/* UPDATE TWEET BOX PROPS HERE */}
-      <TweetBox />
+      <TweetBox setTweets={props.setTweets} tweets={props.tweets} />
 
       <div className="see-new-tweets beet">
         <p>
@@ -17,5 +17,5 @@ export default function Feed(props) {
 
       <div className="twitter-feed">{/* ADD CODE HERE */}</div>
     </div>
-  )
+  );
 }
