@@ -3,27 +3,42 @@ import TweetInput from "./TweetInput";
 import "./TweetBox.css";
 
 export default function TweetBox(props) {
+  function handleOnTweetTextChange(event) {
+    props.setTweetText(event.target.value);
+  }
+
   function handleOnSubmit() {
     const newTweet = {
       name: props.userProfile.name,
       handle: props.userProfile.handle,
-      text: " ",
+      text: props.tweetText,
       comments: 0,
       retweets: 0,
       likes: 0,
       id: props.tweets.length,
     };
     props.setTweets(props.tweets.concat(newTweet));
-    //props.setTweetText("");
+    props.setTweetText("");
   }
   return (
     <div className="tweet-box">
-      <TweetInput />
+      <TweetInput
+        value={props.tweetText}
+        handleOnChange={handleOnTweetTextChange}
+        // textArea=""
+      />
 
       <div className="tweet-box-footer">
         <TweetBoxIcons />
-        <TweetCharacterCount />
-        <TweetSubmitButton handleOnSubmit={handleOnSubmit} />
+        <TweetCharacterCount
+          tweetText={props.tweetText}
+          tweetlen={props.tweetText.length}
+          tweetsleft={140 - props.tweetText.length}
+        />
+        <TweetSubmitButton
+          handleOnSubmit={handleOnSubmit}
+          disabled={props.tweetText.length == 0 || props.tweetText.length > 140}
+        />
       </div>
     </div>
   );
@@ -42,14 +57,24 @@ export function TweetBoxIcons() {
 
 export function TweetCharacterCount(props) {
   // ADD CODE HERE
-  return <span></span>;
+  return (
+    <span style={{ color: props.tweetsleft < 0 ? "red" : "black" }}>
+      {props.tweetsleft}
+    </span>
+  );
 }
 
-export function TweetSubmitButton({ handleOnSubmit }) {
+export function TweetSubmitButton(props) {
+  // console.log(props.disabled);
   return (
     <div className="tweet-submit">
       <i className="fas fa-plus-circle"></i>
-      <button className="tweet-submit-button" onClick={handleOnSubmit}>
+      <button
+        className="tweet-submit-button"
+        onClick={props.handleOnSubmit}
+        disabled={props.disabled}
+        // textArea={tweetText}
+      >
         Tweet
       </button>
     </div>
