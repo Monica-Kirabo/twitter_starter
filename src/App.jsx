@@ -11,7 +11,7 @@ export default function App() {
 
   const [tweets, setTweets] = React.useState([firstTweet]);
 
-  const [tweetText, setTweetText] = React.useState(" ");
+  const [tweetText, setTweetText] = React.useState("");
   return (
     <div className="app">
       <Navbar navLinks={navLinks} />
